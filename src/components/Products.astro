@@ -1,0 +1,121 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+
+const PRODUCTS_QUERY = `*[_type == "product"]{_id, title, slug, price, thumbnail, shortdescription, soldout, linkstobuy}`;
+const products = await sanityClient.fetch<SanityDocument[]>(PRODUCTS_QUERY);
+
+import {
+  createImageUrlBuilder,
+  type SanityImageSource,
+} from "@sanity/image-url";
+
+const { projectId, dataset } = sanityClient.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? createImageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+---
+
+<!-- Products -->
+<section class="py-5" id="products">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Featured Products</h2>
+
+    <div class="row g-4">
+      {
+        products.map((product) => {
+
+          let ctas = product.linkstobuy.map((link: any) => {
+            if (link.includes("amazon.com/") | link.includes("://a.co/")) {
+              return "Buy on Amazon!";
+            } else if (link.includes("sophiengineer-studios.myshopify.com")) {
+              return "Buy on Shopify!";
+            } else if (link.includes("etsy.com/")) {
+              return "Buy on Etsy!";
+            } else if (link.includes("redbubble.com/")){
+              return "Buy on Redbubble!";
+            }
+          });
+
+          const productImageUrl = product.thumbnail
+            ? urlFor(product.thumbnail)?.url()
+            : null;
+
+          // console.log(productImageUrl)
+          // urlFor(product.thumbnail)?.width(550).height(310).url()
+
+          return (
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="card product-card h-100 shadow-sm">
+                <img src={productImageUrl} class="card-img-top" alt="Product" />
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{product.title}</h5>
+                  <p class="card-text">{product.shortdescription}</p>
+                  <div class="mt-auto">
+                    <p class="fw-bold">${product.price}</p>
+                    <div class="d-flex flex-column gap-2">
+                    {product.linkstobuy.map((this_link: any, idx: number) => {
+                      return(
+                      <a href={this_link} target="_blank">
+                        <button class="btn btn-dark w-100">{ctas[idx]}</button>
+                      </a>);
+                    })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+
+      {
+        /* <!-- Product 1 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card product-card h-100 shadow-sm">
+          <img src="https://sophiaisfabulous.com/projects/img/celltown/CellRoad.gif" class="card-img-top" alt="Product">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Product Name</h5>
+            <p class="card-text">Short product description goes here.</p>
+            <div class="mt-auto">
+              <p class="fw-bold">$29.00</p>
+              <button class="btn btn-dark w-100">Learn More!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card product-card h-100 shadow-sm">
+          <img src="https://sophiaisfabulous.com/projects/img/celltown/CellRoad.gif" class="card-img-top" alt="Product">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Another Product</h5>
+            <p class="card-text">Short product description goes here.</p>
+            <div class="mt-auto">
+              <p class="fw-bold">$45.00</p>
+              <button class="btn btn-dark w-100">Learn More!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card product-card h-100 shadow-sm">
+          <img src="https://sophiaisfabulous.com/projects/img/celltown/CellRoad.gif" class="card-img-top" alt="Product">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Third Product</h5>
+            <p class="card-text">Short product description goes here.</p>
+            <div class="mt-auto">
+              <p class="fw-bold">$19.00</p>
+              <button class="btn btn-dark w-100">Learn More!</button>
+            </div>
+          </div>
+        </div>
+      </div> */
+      }
+    </div>
+  </div>
+</section>

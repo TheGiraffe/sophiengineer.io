@@ -1,0 +1,93 @@
+   	html,
+   	body {
+   	  margin: 0;
+   	  width: 100%;
+   	  font-family: 'Courier New', Courier, monospace;
+   	}
+
+   	@font-face {
+   	  font-family: 'SophiengineerHandwrittenPrint-Regular';
+   	  src: url('/fonts/SophiengineerHandwrittenPrint-Regular.woff') format('woff');
+   	  font-weight: normal;
+   	  font-style: normal;
+   	  font-display: swap;
+   	}
+
+   	.navbar {
+   	  background: linear-gradient(120deg, #f9e95e, #ff66c4);
+   	  font-family: 'Courier New', Courier, monospace;
+   	  font-size: 110%;
+   	}
+
+   	.hero {
+   	  background: linear-gradient(120deg, #fff7ad, #ffa9f9);
+   	  padding: 100px 20px;
+   	  text-align: center;
+   	  color: black;
+   	  font-family: 'Courier New', Courier, monospace;
+   	}
+
+   	.hero h1 {
+   	  font-family: 'SophiengineerHandwrittenPrint-Regular', sans-serif;
+   	}
+
+   	.btn {
+   	  background-color: #ff66c4;
+   	  border-color: #ffa9f9;
+   	  color: white;
+   	  font-family: 'SophiengineerHandwrittenPrint-Regular', sans-serif;
+   	  transition: 0.5s linear;
+   	}
+
+   	.btn:hover {
+   	  background-color: #ffef9e !important;
+   	  border-color: #fff7ad !important;
+   	  color: black !important;
+   	  transition: 0.5s linear !important;
+   	}
+
+   	.product-card img {
+   	  height: 200px;
+   	  object-fit: cover;
+   	}
+
+   	.card-title {
+   	  font-family: 'SophiengineerHandwrittenPrint-Regular', sans-serif;
+   	}
+
+   	.about-section {
+   	  background-image: url("../assets/AboutBG.jpg");
+   	  background-size: cover;
+   	  background-color: white;
+   	  color: black;
+   	  padding: 100px 20px;
+   	  text-align: center;
+   	  font-family: 'Courier New', Courier, monospace;
+   	}
+
+   	.recent-content {
+   	  color: black;
+   	  padding: 50px 20px;
+   	  text-align: center;
+   	  font-family: 'Courier New', Courier, monospace;
+   	}
+
+   	.pink-footer {
+   	  background: linear-gradient(120deg, #fff7ad, #ffa9f9);
+   	}
+
+   	.gravitas-one-regular {
+   	  font-family: "Gravitas One", serif;
+   	  font-weight: 400;
+   	  font-style: normal;
+   	}
+
+   	.momo-signature-regular {
+   	  font-family: "Momo Signature", cursive;
+   	  font-weight: 400;
+   	  font-style: normal;
+   	}
+
+   	.sophiengineer-handwritten {
+   	  font-family: 'SophiengineerHandwrittenPrint-Regular', sans-serif;
+   	}

@@ -1,0 +1,41 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+
+const CONTENT_QUERY = `*[_type == "recentcontent"][0...6]`;
+const content = await sanityClient.fetch<SanityDocument[]>(CONTENT_QUERY);
+
+import {
+  createImageUrlBuilder,
+  type SanityImageSource,
+} from "@sanity/image-url";
+
+const { projectId, dataset } = sanityClient.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? createImageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+---
+
+<section class="recent-content">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Recent Content</h2>
+        <div class="row">
+        {
+            content.map((item) => {
+                return(
+                    <div class="col col-sm-4 pb-4">
+                        <h5>{item.title}</h5>
+
+                        {item.type == "youtube_video" && 
+                        <iframe src={item.link} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>}
+
+                        {item.type == "youtube_short" && 
+                        <iframe src={item.link.replace("shorts", "embed")} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> }
+                    </div>
+                )
+            })
+        }
+        </div>
+    </div>
+</section>
