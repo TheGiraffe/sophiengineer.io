@@ -6,8 +6,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://thegiraffe.github.io',
-    base: '/sophiengineer.io',
+    site: 'https://sophiengineer.io',
     integrations: [
         sanity({
             projectId: "ud7ejusl",
